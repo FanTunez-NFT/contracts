@@ -5,6 +5,8 @@ import "./FanTuneZArtist.sol";
 
 contract FanTuneZArtistFactory is Ownable {
     uint256 public totalArtists;
+    address[] public allArtists;
+
     event ArtistCreated(
     
         address artist,
@@ -21,6 +23,7 @@ contract FanTuneZArtistFactory is Ownable {
         artist.transferOwnership(msg.sender);
         emit ArtistCreated(address(artist),_artistURI,totalArtists);
         totalArtists = totalArtists+1;
+        allArtists.push(address(artist));
 
     }
   
