@@ -36,7 +36,7 @@ contract FanTuneZArtist is ERC721, Ownable {
     }
 
 
-    function mint(uint256 quantity,string memory uri, uint256 price) external onlyOwner {
+    function createNft(uint256 quantity,string memory uri, uint256 price) external onlyOwner {
         require(quantity > 0,"invalid quantity");
 
         uint256 index =totalSupply;
