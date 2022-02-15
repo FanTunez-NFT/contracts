@@ -18,7 +18,7 @@ module.exports = {
     hardhat: {
     },
     bsctest: {
-      url: "https://data-seed-prebsc-1-s1.binance.org:8545",
+      url: "https://speedy-nodes-nyc.moralis.io/cf8b736636d60bdd2970f22a/bsc/testnet",
       accounts: [ process.env.PRIVATE_KEY ]
     }
   },

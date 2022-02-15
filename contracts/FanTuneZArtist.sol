@@ -1,9 +1,11 @@
 pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
+
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
-contract FanTuneZArtist is ERC721, Ownable {
+contract FanTuneZArtist is ERC721, Ownable, IERC721Receiver {
     string public artistURI;
     uint256 public totalSupply;
     bool public saleEnabled;
@@ -61,6 +63,8 @@ contract FanTuneZArtist is ERC721, Ownable {
     }
 
 
+
+
      function changePrice(uint256 tokenId, uint256 price) public onlyOwner {
         require(_exists(tokenId), "ERC721Metadata: URI query for nonexistent token");
         require(ownerOf(tokenId)== address(this), "Sold Out");
@@ -97,6 +101,18 @@ contract FanTuneZArtist is ERC721, Ownable {
         require(saleEnabled, "Sale not Enabled");
         safeTransferFrom(address(this), msg.sender, tokenId);
         emit onSold(tokenId, msg.sender,msg.value);
+    }
+
+
+
+    function onERC721Received(
+        address operator,
+        address from,
+        uint256 tokenId,
+        bytes calldata data
+    ) external returns (bytes4){
+        return 0x150b7a02;
+
     }
 }
 
