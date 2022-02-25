@@ -14,11 +14,31 @@ async function main() {
   // await hre.run('compile');
 
   // We get the contract to deploy
-  const FanTuneZArtistFactory = await hre.ethers.getContractFactory("FanTuneZArtistFactory");
+  const FanTuneZArtistFactory = await hre.ethers.getContractFactory(
+    "FanTuneZArtistFactory"
+  );
+  const ArtistContract = await hre.ethers.getContractFactory("FanTuneZArtist");
+
   const fanTuneZArtistFactory = await FanTuneZArtistFactory.deploy();
 
-  await fanTuneZArtistFactory.deployed();
-  console.log("FanTuneZArtistFactory deployed to:", fanTuneZArtistFactory.address);
+  const factoryContract = await fanTuneZArtistFactory.deployed();
+
+  await factoryContract.createArtist("name", "symbol", "uri");
+  const artistAddress = await factoryContract.allArtists(0);
+  const artistContract = ArtistContract.attach(artistAddress);
+  await artistContract.createNft(5, "irr", 100000000000000);
+  console.log("ownerOf ",await artistContract.ownerOf(0))
+  await artistContract.flipSale();
+
+  await artistContract.buy(0, { value: 100000000000000 });
+  console.log("ownerOf ",await artistContract.ownerOf(0))
+
+  console.log("aristtt", await artistContract.totalSupply());
+
+  // console.log(
+  //   "FanTuneZArtistFactory deployed to:",
+  //   fanTuneZArtistFactory.address
+  // );
 }
 
 // We recommend this pattern to be able to use async/await everywhere

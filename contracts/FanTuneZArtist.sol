@@ -2,6 +2,7 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
+import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
@@ -99,7 +100,7 @@ contract FanTuneZArtist is ERC721, Ownable, IERC721Receiver {
         require(ownerOf(tokenId)== address(this), "Sold Out");
         require(msg.value >= _price[tokenId], "Invalid Price");
         require(saleEnabled, "Sale not Enabled");
-        safeTransferFrom(address(this), msg.sender, tokenId);
+        IERC721(address(this)).safeTransferFrom(address(this), msg.sender, tokenId);
         emit onSold(tokenId, msg.sender,msg.value);
     }
 
