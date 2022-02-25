@@ -110,7 +110,7 @@ contract FanTuneZArtist is ERC721, Ownable, IERC721Receiver {
         address from,
         uint256 tokenId,
         bytes calldata data
-    ) external returns (bytes4){
+    ) external  override returns (bytes4){
         return 0x150b7a02;
 
     }
