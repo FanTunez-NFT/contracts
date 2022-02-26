@@ -20,6 +20,9 @@ contract FanTuneZArtist is ERC721, Ownable, IERC721Receiver {
     event onPriceChanged(uint256 tokenId,uint256 price);
     event onSold(uint256 tokenId, address to, uint256 saleAmount);
 
+    event onSaleStatusChanged(bool status);
+
+
     constructor(
         string memory _name,
         string memory _symbol,
@@ -36,6 +39,7 @@ contract FanTuneZArtist is ERC721, Ownable, IERC721Receiver {
 
      function flipSale() public onlyOwner{
         saleEnabled = !saleEnabled;
+        emit onSaleStatusChanged(saleEnabled);
     }
 
 

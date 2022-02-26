@@ -19,18 +19,17 @@ async function main() {
   );
   const ArtistContract = await hre.ethers.getContractFactory("FanTuneZArtist");
 
-  const fanTuneZArtistFactory = await FanTuneZArtistFactory.deploy();
+  // const fanTuneZArtistFactory = await FanTuneZArtistFactory.deploy();
 
-  const factoryContract = await fanTuneZArtistFactory.deployed();
+  const factoryContract = await FanTuneZArtistFactory.attach("0x2c7974bade5adac329f6358fbae2f04e561a7d50");
 
-  await factoryContract.createArtist("name", "symbol", "uri");
+  // await factoryContract.createArtist("pointer", "pointer", "uri");
   const artistAddress = await factoryContract.allArtists(0);
   const artistContract = ArtistContract.attach(artistAddress);
   await artistContract.createNft(5, "irr", 100000000000000);
-  console.log("ownerOf ",await artistContract.ownerOf(0))
-  await artistContract.flipSale();
+  // await artistContract.flipSale();
 
-  await artistContract.buy(0, { value: 100000000000000 });
+  // await artistContract.buy(0, { value: 100000000000000 });
   console.log("ownerOf ",await artistContract.ownerOf(0))
 
   console.log("aristtt", await artistContract.totalSupply());
